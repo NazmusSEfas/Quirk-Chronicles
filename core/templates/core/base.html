@@ -1,0 +1,51 @@
+<!-- core/templates/core/base.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {%load static%}
+    <title>{% block title %}My Site{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">  <!-- Example for static files -->
+</head>
+<body>
+    <div class="page-wrapper">
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'post_list' %}">Posts</a></li>
+                    <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                    {%if user.is_authenticated %}
+                        <li><a href="{% url 'add_post' %}">Add Post</a></li>
+                        <li><a href="{% url 'user:logout' %}">Logout</a></li>
+                    {%else%}
+                        <li><a href="{% url 'user:login' %}">Login</a></li>
+                    {%endif%}
+                    <li><a href="{% url 'home' %}">About</a></li>
+                    <li><a href="{% url 'home' %}">Contact Us</a></li>
+                    <!-- Add more navigation links as needed -->
+                </ul>
+            </nav>
+            {%block header_content%}{%endblock%}
+        </header>
+
+        <main class='content-wrapper'>
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer>
+            <p>&copy; {{ current_year }} The Quirk Chronicles</p>
+            <nav>
+                <a href="#">Privacy Policy</a> |
+                <a href="#">Terms of Service</a> |
+                <a href="#">Contact Us</a>
+            </nav>
+        </footer>
+
+        
+    </div>
+    {%block script%}{%endblock%}
+</body>
+</html>

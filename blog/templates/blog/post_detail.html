@@ -1,0 +1,24 @@
+<!-- post/templates/post/post_detail.html -->
+
+{% extends "core/base.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <p>Created by: {{ post.created_by.username }} on {{ post.created_at }}</p>
+    <p>Published on: {{ post.published_at }}</p>
+
+    <div class='post-content'>
+        <h2>Content</h2>
+        {% for paragraph in paragraphs %}
+            <p>{{ paragraph.content }}</p>
+            <div>
+                <!-- Display images for each paragraph -->
+                {% for image in paragraph.images.all %}
+                    <img src="{{ image.image.url }}" alt="Image for paragraph" style="max-width: 100%; height: auto;">
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

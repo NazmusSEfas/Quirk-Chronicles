@@ -1,0 +1,132 @@
+{%extends "core/base.html"%}
+{%load static%}
+
+<link rel="stylesheet" href="{% static 'css/add_post.css' %}">
+{%block title %}Add Post{%endblock%}
+
+
+
+
+{%block content%}
+<div class="form-container">
+    <h1>Add a New Post</h1>
+
+    <form method = 'POST' enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        {{post_form.as_p}}
+
+        <h2> Paragraph </h2>
+        {{formset.management_form}}
+        <div id='paragraph-container'>
+            {%for form in formset%}
+
+                <div class="paragraph-form">
+                    {{form.as_p}}
+
+                    <div class='image-container' id="image-container-{{forloop.counter}}">
+
+                    </div>
+
+                    <!--This is a hidden file input that will be unhidden once button clikced, look as script for better understanding-->
+                    <input type="file" id="file-input-{{forloop.counter}}" name="images_{{forloop.counter}}"
+                            style = "display: none;" multiple onchange="handleFileSelect(event, {{forloop.counter}})"> 
+                    <button type="button" onclick="document.getElementById('file-input-{{forloop.counter}}').click()">Add Image</button>
+
+                </div>
+            {%endfor%}
+        </div>
+
+        <button type="button" id="add-paragraph-btn">Add Paragraph</button>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <div>
+        {%for message in messages%}
+            <p>{{message}}</p><!--where did message come from??? as gpt-->
+        {%endfor%}
+    </div>
+
+</div>
+    <template id="paragraph-template">
+        <div class="paragraph-form">
+            <textarea name="paragraph-content" placeholder="Enter Content" rows="4" cols="50"></textarea>
+            <input type="file" style="display:none" multiple 
+                    onchange="handleFileSelect(event, this)" class="image-input">
+            <button type="button" onclick="this.previousElementSibling.click()">Add Image</button>
+            <div class="image-container"></div>
+        </div>
+    </template>
+{%endblock%}
+
+{%block script%}
+
+    <script>
+
+        let paragraphCount = {{formset.total_form_count}};
+        console.log("paragraph count:", paragraphCount);
+            
+        document.getElementById('add-paragraph-btn').addEventListener('click',function(){
+            const container = document.getElementById('paragraph-container');
+            const template = document.getElementById('paragraph-template').content.cloneNode(true);
+            
+            const fileInput = template.querySelector('.image-input');
+            fileInput.name = `images_new_${paragraphCount}`;
+            fileInput.setAttribute('data-paragraph',paragraphCount);//data- followed by a string is a custom attribute that can be attatched to any HTML tag
+
+            const imageContainer = template.querySelector('.image-container');
+            imageContainer.id = `image-container-${paragraphCount}`;
+
+            
+            container.appendChild(template);
+            paragraphCount++;
+        });
+
+
+        function handleFileSelect(event ,paragraphElement){
+            //finding the image container of a specific paragraph
+            console.log("Add Image button clicked for paragraph:", typeof paragraphElement);
+            let paragraphIndex = ""
+            if (typeof paragraphElement != 'number'){
+                paragraphIndex = paragraphElement.getAttribute('data-paragraph');
+                console.log("Inside If:", typeof paragraphElement);
+            
+            }else{
+                paragraphIndex = paragraphElement
+                console.log("Inside else:", typeof paragraphElement);
+            
+            }
+            console.log("Add Image button clicked for paragraph:", typeof paragraphIndex);
+            const container = document.getElementById(`image-container-${paragraphIndex}`);//${} is used for string formatting
+            console.log("Add Image button clicked for paragraph:", `image-container-${paragraphIndex}`);
+            
+            
+
+            if (container){
+                //clear previoius entries
+                container.innerHTML = '';
+                //create a new file input for the image
+
+
+                for(const file of event.target.files){
+                    const fileItem = document.createElement('p');
+                    fileItem.textContent = file.name;
+                    container.appendChild(fileItem)
+                }
+                //const imageField = document.createElement("input");
+                //imageField.type = "file";
+                //imageField.name = `images_${paragraphIndex}[]`;//why the array style?
+                //add the new image field to the container
+                //container.appendChild(imageField);
+                //adding line spacing
+                //container.appendChild(document.createElement("br"));
+            }else{
+                console.error('No Container Found')
+            }
+            
+
+        }
+    </script>
+
+{%endblock%}

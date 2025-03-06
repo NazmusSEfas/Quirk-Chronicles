@@ -1,0 +1,10 @@
+.form-container{
+
+    max-height: 100vh;
+    overflow-y: auto;
+    padding: 1em;
+    padding-bottom: 5em;
+    box-sizing: border-box;
+
+
+}

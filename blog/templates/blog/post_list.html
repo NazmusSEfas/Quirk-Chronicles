@@ -1,0 +1,18 @@
+<!-- post/templates/post/post_list.html -->
+
+{% extends "core/base.html" %}
+
+{% block title %}Post List{% endblock %}
+
+{% block content %}
+    <h1>All Posts</h1>
+    <ul class="section post-cards">
+        {% for post in posts %}
+            <li class='post-card'>
+                <a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a>
+                <p>Created by: {{ post.created_by.username }} on {{ post.created_at }}</p>
+                <p>Published on: {{ post.published_at }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,132 @@
+<!-- core/templates/core/home.html -->
+
+{% extends "core/base.html" %}
+
+{% block title %}Home - The Quirk Chronicles{% endblock %}
+
+{% block content %}
+    <section class="welcome-banner">
+        <h2>Welcome to The Quirk Chronicles</h2>
+        <p>{{ author_bio }}</p>
+    </section>
+    
+    <section class="recent-post carousel">
+        <h3 class="carousel-heading">Recent Posts</h3>
+        <div class = "carousel-arrow left-arrow" onclick="rotateCarousel(-1)">&#9664;</div>
+        <div class="carousel-track">
+            {%for item in posts_with_images %}
+                <div class="carousel-card" style="background-image: url('{{item.image}}')">
+                    
+                    
+                    <div class="post-content">
+                        <h4><a {%if item.image != None%}style="color:white"{%endif%} href="{%url 'post_detail' pk=item.post.pk%}">{{item.post.title}}</a></h4>
+                        <p>{{item.post.summery|truncatewords:20}}</p>
+                        <p class="post-date">Published on {{item.post.published_at|date:"F j, Y"}}</p>
+                        <a href="{% url 'post_detail' item.post.pk %}">Read More</a>
+                    
+                    </div>
+                </div>
+            {%endfor%}
+        </div>
+        <div class = "carousel-arrow right-arrow" onclick="rotateCarousel(1)">&#9654;</div>
+    </section>
+    
+    <!-- Featured Categories Section -->
+    <section class="featured-categories">
+        <h3>Explore Categories</h3>
+        <div class="category-cards">
+            {% for category in featured_categories %}
+                <div class="category-card">
+                    <h4>{{ category }}</h4>
+                    <p><a href="#">See more in {{ category }}</a></p>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+    
+
+    <!-- About the Author Section -->
+    <section class="about-author">
+        <h3>About the Author</h3>
+        <p>{{ author_bio }}</p>
+        <a href="{% url 'home' %}">Read Full Bio</a>
+    </section>
+
+{% endblock %}
+
+{%block script%}
+    <script>
+        /*let currentIndex = 0;
+        const carouselCards = document.querySelectorAll('.carousel-card');
+        const totalCards = carouselCards.length;
+
+        function updateCarousel(){
+            carouselCards.forEach((card, index) => {
+                const position = (index - currentIndex + totalCards) % totalCards;
+                console.log("Script accessed:", "01");
+            
+                card.classList.remove('front', 'middle-left', 'middle-right', 'back-left', 'back-right');
+
+                switch(position){
+                    case 0:
+                        card.classList.add('back-left')
+                        break;
+                    case 1:
+                        card.classList.add('middle-left')
+                        break;
+                    
+                    case 2:
+                        card.classList.add('front')
+                        break;
+
+                    case 3:
+                        card.classList.add('middle-right')
+                        break;
+
+                    case 4:
+                        card.classList.add('back-right')
+                        break;
+                    
+                }
+            })
+        }
+
+        function rotateCarousel(step = 1){
+            currentIndex = (currentIndex + step + totalCards) % totalCards;
+            updateCarousel();
+        }
+
+        //setInterval(()=> rotateCarousel(1), 3000);*/
+
+        const carouselCards = document.querySelectorAll('.carousel-card');
+
+        function updateClassesOnHover(hoveredIndex) {
+            // Remove all positional classes from each card
+            console.log("Script accessed:", hoveredIndex);
+            
+            carouselCards.forEach(card => {
+                card.classList.remove('front', 'middle-left', 'middle-right', 'back-left', 'back-right');
+            });
+
+            // Determine positions relative to the hovered card
+            const totalCards = carouselCards.length;
+            
+            //const positions = ['back-left', 'middle-left', 'front', 'middle-right', 'back-right'];
+            const positions = ['front', 'middle-right', 'back-right', 'back-left', 'middle-left'];
+            
+            carouselCards.forEach((card, index) => {
+                const positionIndex = (index - hoveredIndex + totalCards) % totalCards;
+                console.log("Script accessed: positions", positionIndex);
+           
+                card.classList.add(positions[positionIndex]);
+            });
+        }
+
+        // Add event listeners for hover to each card
+        carouselCards.forEach((card, index) => {
+            card.addEventListener('mouseenter', () => updateClassesOnHover(index));
+        });
+
+
+    </script>
+{%endblock%}
