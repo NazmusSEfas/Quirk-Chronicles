@@ -1,0 +1,327 @@
+/* static/css/styles.css */
+:root{
+
+    --background-color: #f5f5dc;
+    --secondary-color: #faf3e0;
+
+    --primary-text: #333333;
+    --secondary-text: #555555;
+
+    --accent-color: #7c4dff;
+    --highlight-color: #d4a017;
+    --contrast-color: #4b9cd3;
+
+    --border-color: #C4A484; 
+    --shadow-color: rgba(0, 0, 0, 0.15);
+
+    --button-background: #7c4dff;
+    --button-text: #ffffff;
+    --button-hover-background: #6a4fc6;
+
+    --card-background: #faf0e6;
+
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--primary-text);
+    font-family: "Georgia", sans-serif;
+    margin: 0;
+    padding: 0;
+    max-height: 100vh;
+}
+
+.page-wrapper{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; /* Make the header span the full width of the page */
+    z-index: 10; /* Ensure the header is above other elements */
+    padding: 1em 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+    
+}
+
+main {
+    position: relative;
+    padding-top: 5em; /* Adjust this value based on the height of your header */
+    clear: both;
+    overflow-y: auto;
+}
+.content-wrapper{
+    flex: 1;
+    padding-bottom: 5em;
+}
+
+h1, h2, h3, h4 {
+    color: var(--primary-text);
+    font-family: "Merriweather", serif;
+}
+
+p, a, span{
+    color: var(--secondary-text);
+    
+}
+
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--highlight-color);
+}
+
+button {
+    background-color: var(--button-background);
+    color: var(--button-text);
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 2px;
+}
+
+button:hover {
+    background-color: var(--button-hover-background);
+}
+
+section{
+    margin: 2em 2em;
+
+}
+
+.post-card {
+    background-color: var(--card-background);
+    padding: 1em;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    margin-bottom: 1em;
+}
+
+.card, .section{
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    box-shadow: 0px 4px 8px var(--shadow-color);
+    border-radius: 5px;
+    padding: 1em;
+    margin: 1em 0;
+
+}
+
+.highlight { 
+    color: var(--highlight-color);
+}
+
+.accent {
+    color: var(--accent-color);
+}
+
+.border {
+    border-color: var(--background-color);
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 10px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.form-container{
+
+    max-height: 100vh;
+    overflow-y: auto;
+    padding: 1em;
+    padding-bottom: 5em;
+    box-sizing: border-box;
+
+
+}
+.post-content{
+    max-height: 100vh;
+    overflow-y: auto;
+    padding: 1em;
+    padding-bottom: 5em;
+    box-sizing: border-box;
+}
+input[type="text"], input[type="password"], input[type="email"] {
+    width: 100%;
+    padding: 0.7em;
+    margin: 0.5em 0;
+    border: 1px solid #C4A484; /* Soft brown border */
+    border-radius: 4px;
+    background-color: #FAF0E6; /* Light linen color for a vintage feel */
+    font-family: "Georgia", serif; /* Matches journal theme */
+    font-size: 1em;
+    color: #333333; /* Darker color for text */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+textarea {
+    width: 100%;
+    padding: 0.7em;
+    margin: 0.5em 0;
+    border: 1px solid #C4A484;
+    border-radius: 4px;
+    background-color: #FAF0E6;
+    font-family: "Georgia", serif;
+    font-size: 1em;
+    color: #333333;
+    resize: vertical; /* Allows vertical resize but not horizontal */
+    min-height: 150px; /* Ensures a good starting height */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    
+}
+/* Hover and focus effects */
+input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, textarea:focus {
+    border-color: #7C4DFF; /* Deep purple for focus */
+    box-shadow: 0px 0px 8px rgba(124, 77, 255, 0.3); /* Soft purple glow */
+    outline: none; /* Remove default focus outline */
+}
+
+/* Label styling for a cohesive look */
+label {
+    font-family: "Georgia", serif;
+    color: #555555;
+    font-size: 1em;
+    margin-bottom: 0.3em;
+    display: block;
+}
+
+
+footer {
+    background-color: #333;
+    margin-top: auto;
+    color: white;
+    font-size: 0.9em;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+
+.carousel {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 1s ease-in-out;
+    transform-style: preserve-3d;
+    width: 100%;
+    justify-content: center;
+}
+
+.carousel-card {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    width: 200px;
+    height: 250px;
+    margin: 0 15px;
+    flex: 0 0 auto;
+    position: relative;
+    transition: transform 1s, opacity 0.1s;
+}
+
+.carousel-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4); /* Adjust for lighter or darker overlay */
+    z-index: 1;
+    border-radius: 5px; /* Optional: Matches card shape */
+}
+
+.carousel-card .post-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Front card (center and larger) */
+.front {
+    transform: scale(1.2) translateZ(0px);
+    z-index: 3;
+    opacity: 1;
+}
+
+/* Cards on the immediate left and right of the front card */
+.middle-left {
+    transform: scale(0.8) translateX(-40px) translateZ(-100px);
+    z-index: 2;
+    opacity: 0.7;
+}
+
+.middle-right {
+    transform: scale(0.8) translateX(40px) translateZ(-100px);
+    z-index: 2;
+    opacity: 0.7;
+}
+
+/* Cards on the far left and right of the center card */
+.back-left {
+    transform: scale(0.6) translateX(-80px) translateZ(-200px);
+    z-index: 1;
+    opacity: 0.5;
+}
+
+.back-right {
+    transform: scale(0.6) translateX(80px) translateZ(-200px);
+    z-index: 1;
+    opacity: 0.5;
+}
+
+
+/* Left and Right Arrows */
+.carousel-arrow {
+    font-size: 2em;
+    color: #333;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 4;
+}
+
+.left-arrow {
+    left: 10px;
+}
+
+.right-arrow {
+    right: 10px;
+}
