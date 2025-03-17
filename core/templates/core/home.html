@@ -11,8 +11,7 @@
     </section>
     
     <section class="recent-post carousel">
-        <h3 class="carousel-heading">Recent Posts</h3>
-        <div class = "carousel-arrow left-arrow" onclick="rotateCarousel(-1)">&#9664;</div>
+        
         <div class="carousel-track">
             {%for item in posts_with_images %}
                 <div class="carousel-card" style="background-image: url('{{item.image}}')">
@@ -28,7 +27,7 @@
                 </div>
             {%endfor%}
         </div>
-        <div class = "carousel-arrow right-arrow" onclick="rotateCarousel(1)">&#9654;</div>
+        
     </section>
     
     <!-- Featured Categories Section -->
